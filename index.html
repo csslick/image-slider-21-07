@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이미지 슬라이더</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    /* 메인 비주얼 */
+    #mainVisual .container {
+      position: relative;
+      /* 화면 크기 */
+      width: 1200px;
+      height: 500px;
+      /* outline: 2px solid red; */
+      overflow: hidden;
+    }
+
+    .gallery {
+      /* 전체 슬라이드 영역 = 화면폭 x 이미지 장수 */
+      width: calc(1200px * 3);
+      height: 500px;
+      position: relative;
+      left: 0px;
+      transition-duration: 0.4s;
+      /* border: 2px solid; */
+    }
+
+    .gallery>img {
+      float: left;
+    }
+  </style>
+</head>
+
+<body>
+  <section id="mainVisual">
+    <div class="container">
+      <!-- 메인 비주얼(갤러리) -->
+      <div class="gallery">
+        <img src="https://via.placeholder.com/1200x500/f80?text=1" alt="1">
+        <img src="https://via.placeholder.com/1200x500/f68?text=2" alt="2">
+        <img src="https://via.placeholder.com/1200x500/86f?text=3" alt="3">
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // 제이쿼리 ready함수 먼저 작성
+    $(function () {
+      var img_width = 1200; // 이미지 폭
+      var img_num = 0; // 이미지 번호
+      var pos = -img_width * img_num; // 공식(위치) = -이미지폭 x 이미지번호
+      var pauseTime = 5000; // 정지 시간
+
+      function changeGallery(imgNum) {
+        pos = -img_width * imgNum; // 공식
+        // 1.CSS를 사용하는 경우
+        $('.gallery').css('left', pos);
+      }
+
+      // 자동재생 기능
+      setInterval(function () {
+        img_num = img_num + 1; // 다음 이미지 번호
+        // 마지막 이미지면 처음 이미지로
+        if (img_num > 2) { img_num = 0; }
+        changeGallery(img_num);
+      }, pauseTime);
+    })
+
+  </script>
+</body>
+
+</html>
